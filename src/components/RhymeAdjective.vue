@@ -1,18 +1,18 @@
 <template>
-  <div class="rhymesaurus">
-  <p>
+  <div class="rhyme-adjective">
+   <p>
   <router-link v-bind:to="{ name: 'RhymeAdjective' }">Rhyme Adjective</router-link>
-   &bull;
+  &bull;
     <router-link v-bind:to="{ name: 'Rhymesaurus' }">Rhymesaurus</router-link>
     </p>
     <form v-on:submit.prevent="findWords">
-      <p>Find rhymes for <input type="text" v-model="rhyme"> related to <input type="text" v-model="phrase"> <button type="submit">Search</button></p>
+      <p>Find rhymes for <input type="text" v-model="rhyme">that are adjectives used with<input type="text" v-model="phrase"> <button type="submit">Search</button></p>
     </form>
     <ul v-if="results && results.length > 0" class="results">
       <li v-for="item in results" class="item">
         <p><strong> {{ item.word }}</strong></p>
         <p>{{ item.score }}</p>
-      </li>
+      </li> 
     </ul>
 
     <div v-else-if="results && results.length === 0" class="no-results">
@@ -32,7 +32,7 @@
 import axios from 'axios';
 
 export default {
-  name: 'Rhymesaurus',
+  name: 'RhymeAdjective',
   data () {
     return {
       results: null,
@@ -45,7 +45,7 @@ export default {
     findWords: function() {
        axios.get('https://api.datamuse.com/words', {
          params: { 
-           "ml": this.phrase,
+           "rel_jjb": this.phrase,
            "rel_rhy": this.rhyme
          }
        })
